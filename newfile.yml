@@ -5994,19 +5994,34 @@ components:
             - lost 
             - sold
           type: string
-        target_account_id:
-          description: The ID of the bank account the direct deposit was switched to
-          nullable: true
+        type:
+          description: The source of the vehicle sales lead
+          enum:
+            - thirdparty_website
+            - dealer_website
+            - walkin
+            - bdc 
+            - online_campaign
+            - equity_mining
+            - referral
+            - offline_campaign
+            - others
           type: string
-        target_item_id:
-          description: The ID of the Item the direct deposit was switched to.
-          nullable: true
-          type: string
+        payment.type:
+          description: The desired payment type for a particular vehicle sales lead.
+          enum:
+            - loan
+            - cash
+            - lease
+            - balloon
+            - onepay
       required:
         - deposit_switch_id
         - target_account_id
         - target_item_id
         - status
+        - payment.type
+        - type
         - account_has_multiple_allocations
         - is_allocated_remainder
         - percent_allocated
