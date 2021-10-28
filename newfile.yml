@@ -1355,7 +1355,7 @@ paths:
                     is_allocated_remainder: false
                     percent_allocated: 50
                     request_id: lMjeOeu9X1VUh1F
-                    state: completed
+                    status: bad
                     target_account_id: bX5hEMdRAkq1QikR3BLjDyMfMkVpqLmEm1VR7
                     target_item_id: MdRAkq1QikR3BLjDyMfMkVpqLmEm1VR7bX5hE
               schema:
@@ -5605,15 +5605,13 @@ components:
         - request_id
       title: BankTransferMigrateAccountResponse
       type: object
-    payment.type:
-      description: 'The payment method of choice for a given vehicle sales lead.'
+    BankTransferNetwork:
+      description: 'The network or rails used for the transfer. Valid options are `ach`, `same-day-ach`, or `wire`.'
       enum:
-        - loan
-        - cash
-        - lease
-        - balloon
-        - onepay
-      title: payment.type
+        - ach
+        - same-day-ach
+        - wire
+      title: BankTransferNetwork
       type: string
     BankTransferReceiverDetails:
       additionalProperties: true
@@ -5987,12 +5985,14 @@ components:
           type: number
         request_id:
           $ref: '#/components/schemas/RequestID'
-        state:
-          description: The state of the deposit switch.
+        status:
+          description: The status of a vehicle sales lead
           enum:
-            - initialized
-            - completed
-            - error
+            - active
+            - bad
+            - complete
+            - lost 
+            - sold
           type: string
         target_account_id:
           description: The ID of the bank account the direct deposit was switched to
@@ -6006,7 +6006,7 @@ components:
         - deposit_switch_id
         - target_account_id
         - target_item_id
-        - state
+        - status
         - account_has_multiple_allocations
         - is_allocated_remainder
         - percent_allocated
